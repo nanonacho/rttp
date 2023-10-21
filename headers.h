@@ -25,4 +25,24 @@ private:
 
 Instance readTxtInstance(string filename);
 
+class Tournament {
+public:
+    Tournament(vector<vector<int>> schedule); 
+    vector<int> calculateTotalDistanceByTeam(vector<vector<int>> distances);
+    /*
+    int verifyConsecutive(vector<vector<int>> schedule);
+    int verifyConsecutiveMinLocalGames(vector<vector<int>> schedule, int l);
+    int verifyConsecutiveMinAwayGames(vector<vector<int>> schedule, int l);
+    int verifyConsecutiveMaxLocalGames(vector<vector<int>> schedule, int u);
+    int verifyConsecutiveMaxAwayGames(vector<vector<int>> schedule, int u);
+    int verifyConsecutiveMaxGames(vector<vector<int>> schedule, int b);
+    int verifyConsecutiveMaxByes(vector<vector<int>> schedule, int o);
+    */
+    void print();
+private:
+    vector<vector<int>> schedule;
+    
+};
+
+
 void greedy(Instance instance);
