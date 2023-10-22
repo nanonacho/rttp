@@ -21,6 +21,12 @@ int main(int argc, char const *argv[]) {
         cout << total_distance_by_team[i] << " ";
     }
     cout << endl;
+
+    cout << tournament.verifyConsecutiveMaxByes(selectedInstance.getO()) << endl;   
+    cout << tournament.verifyConsecutiveMaxGames(selectedInstance.getB()) << endl;
+    cout << tournament.verifyConsecutiveLocalGamesBounds(selectedInstance.getL(), selectedInstance.getU()) << endl;
+    cout << tournament.verifyConsecutiveAwayGamesBounds(selectedInstance.getL(), selectedInstance.getU()) << endl;
+    cout << tournament.verifyAllConstraints(selectedInstance) << endl;
     
     tournament.print();
     /*greedy(instance4);*/

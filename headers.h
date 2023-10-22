@@ -29,15 +29,12 @@ class Tournament {
 public:
     Tournament(vector<vector<int>> schedule); 
     vector<int> calculateTotalDistanceByTeam(vector<vector<int>> distances);
-    /*
-    int verifyConsecutive(vector<vector<int>> schedule);
-    int verifyConsecutiveMinLocalGames(vector<vector<int>> schedule, int l);
-    int verifyConsecutiveMinAwayGames(vector<vector<int>> schedule, int l);
-    int verifyConsecutiveMaxLocalGames(vector<vector<int>> schedule, int u);
-    int verifyConsecutiveMaxAwayGames(vector<vector<int>> schedule, int u);
-    int verifyConsecutiveMaxGames(vector<vector<int>> schedule, int b);
-    int verifyConsecutiveMaxByes(vector<vector<int>> schedule, int o);
-    */
+    int verifyConsecutiveLocalGamesBounds(int l, int u);
+    int verifyConsecutiveAwayGamesBounds(int l, int u);
+    int verifyConsecutiveMaxGames(int b);
+    int verifyConsecutiveMaxByes(int o);
+    int verifyAllConstraints(Instance instance);
+    
     void print();
 private:
     vector<vector<int>> schedule;

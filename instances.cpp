@@ -58,7 +58,7 @@ void Instance::print() {
     cout << endl;
 }
 
-// Function to read a .txt instance file 
+// Function to read a .txt instance file and return an Instance object
 Instance readTxtInstance(string filename) {
     ifstream file(filename);
     string line;
