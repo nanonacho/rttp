@@ -2,9 +2,8 @@
 # include <fstream>
 # include <sstream>
 # include <vector>
+# include "iomanip"
 # include "headers.h"
-
-using namespace std;
 
 Instance::Instance(int n, int l, int u, int b, int o, vector<vector<int>> distances) {
     this->n = n;
@@ -41,24 +40,25 @@ vector<vector<int>> Instance::getDistances() {
 
 void Instance::print() {
     cout << "n: " << n << endl;
-    cout << "\n" << endl;
+    cout << endl;
     cout << "l: " << l << endl;
     cout << "u: " << u << endl;
     cout << "b: " << b << endl;
     cout << "o: " << o << endl;
-    cout << "\n" << endl;
+    cout << endl;
     int i = 0;
     for (vector<int> row : distances) {
-        cout << i++ << ": ";
+        cout << setw(2) << i++ + 1<< ": ";
         for (int distance : row) {
-            cout << distance << " ";
+            cout << setw(6) << distance << " ";
         }
         cout << endl;
     }
     cout << endl;
 }
 
-// Function to read a .txt instance file and return an Instance object
+// Function to read a .txt instance file
+// Returns an Instance with instance file data
 Instance readTxtInstance(string filename) {
     ifstream file(filename);
     string line;
