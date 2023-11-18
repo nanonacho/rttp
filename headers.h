@@ -54,17 +54,15 @@ private:
 };
 
 // initial_solution.cpp
-Tournament initialSolution(Instance instance);
+Tournament initialSolution(Instance instance, int random_seed);
 
 // moves.cpp
 Tournament swapRounds(Tournament tournament, int round1, int round2);
 Tournament swapHomes(Tournament tournament, int team1, int team2);
 Tournament swapTeams(Tournament tournament, int team1, int team2);
 Tournament hyperMove(Tournament tournament, Instance instance);
-vector<Tournament> generateNeighborhoodSR(Tournament tournament);
 
 // hc.cpp
-Tournament hillClimbing(Tournament initial_solution, Instance instance, int iter);
 Tournament hillClimbingFI(Tournament initial_solution, Instance instance, int iter);
 
 // test.cpp

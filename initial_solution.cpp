@@ -2,13 +2,12 @@
 # include <iostream>
 # include <vector>
 # include <algorithm>
-#include <ctime>
 
 // Function to create schedule using polygon method and assign byes and local games randomly
 // Returns a Tournament with schedule created
-Tournament initialSolution(Instance instance) {
+Tournament initialSolution(Instance instance, int random_seed) {
     // Seed for random number generator
-    srand(time(0));
+    srand(random_seed);
     
     int n = instance.getN();
     

@@ -1,6 +1,8 @@
 # include "headers.h"
 # include "iostream"
 
+// Function to apply swapRounds move to a tournament
+// Returns a new tournament with the move applied
 Tournament swapRounds(Tournament tournament, int round1, int round2) {
     vector<vector<int>> schedule = tournament.getSchedule();
     int n = int(schedule.size());
@@ -15,6 +17,8 @@ Tournament swapRounds(Tournament tournament, int round1, int round2) {
     return new_tournament;
 }
 
+// Function to apply swapHomes move to a tournament
+// Returns a new tournament with the move applied
 Tournament swapHomes(Tournament tournament, int team1, int team2) {
     vector<vector<int>> schedule = tournament.getSchedule();
     int n = int(schedule.size());
@@ -29,6 +33,8 @@ Tournament swapHomes(Tournament tournament, int team1, int team2) {
     return new_tournament;
 }
 
+// Function to apply swapTeams move to a tournament 
+// Returns a new tournament with the move applied
 Tournament swapTeams(Tournament tournament, int team1, int team2) {
     vector<vector<int>> schedule = tournament.getSchedule();
     int n = int(schedule.size());
@@ -46,14 +52,45 @@ Tournament swapTeams(Tournament tournament, int team1, int team2) {
             else if (schedule[team2][i] < 0) schedule[abs(schedule[team2][i]) - 1][i] = team2 + 1;
         }
     }
-    /*
-    
-    */
     
     Tournament new_tournament = Tournament(schedule);
     return new_tournament;
 }
 
+/*
+Tournament partialSwapRounds(Tournament tournament, int round1, int round2, int team) {
+    vector<vector<int>> schedule = tournament.getSchedule();
+    int n = int(schedule.size());
+
+    // Swap the teams for the specified rounds
+    int temp = schedule[team][round1];
+    schedule[team][round1] = schedule[team][round2];
+    schedule[team][round2] = temp;
+
+    // Update the corresponding opponent teams
+    for (int i = 0; i < n; i++) {
+        if (i != team) {
+            if (schedule[i][round1] == team + 1) {
+                schedule[i][round1] = schedule[team][round2];
+            } else if (schedule[i][round1] == schedule[team][round2]) {
+                schedule[i][round1] = team + 1;
+            }
+
+            if (schedule[i][round2] == team + 1) {
+                schedule[i][round2] = schedule[team][round1];
+            } else if (schedule[i][round2] == schedule[team][round1]) {
+                schedule[i][round2] = team + 1;
+            }
+        }
+    }
+
+    Tournament new_tournament = Tournament(schedule);
+    return new_tournament;
+}
+*/
+
+// Function to get first improvement applying each move to a tournament and returning the best one
+// Returns a new tournament with the move applied
 Tournament hyperMove(Tournament tournament, Instance instance) {
 
     vector<vector<int>> schedule = tournament.getSchedule();
@@ -99,22 +136,24 @@ Tournament hyperMove(Tournament tournament, Instance instance) {
     }
 
     if (best_3_fitness < best.calculateFitness(instance)) best = best_3;
-    
-    
-    return best;
-}
 
-
-vector<Tournament> generateNeighborhoodSR(Tournament tournament) {
-    vector<Tournament> neighborhood;
-    vector<vector<int>> schedule = tournament.getSchedule();
-    int n = int(schedule.size());
-    
+    /*
+    Tournament best_4 = tournament;
+    int best_4_fitness = 1000000000;
     for (int i = 0; i < 4 * (n - 1); i++) {
         for (int j = i + 1; j < 4 * (n - 1); j++) {
-            Tournament new_tournament = swapRounds(tournament, i, j);
-            neighborhood.push_back(new_tournament);
+            for (int k = 0; k < n; k++) {
+                best_4 = partialSwapRounds(tournament, i, j, k);
+                best_4_fitness = best_4.calculateFitness(instance);
+                if (best_4_fitness < tournament_fitness) break;
+            }
+            if (best_4_fitness < tournament_fitness) break;
         }
+        if (best_4_fitness < tournament_fitness) break;
     }
-    return neighborhood;
+
+    if (best_4_fitness < best.calculateFitness(instance)) best = best_4;
+    */
+
+    return best;
 }
