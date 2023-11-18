@@ -5,7 +5,7 @@ make
 ```
 
 # Instrucciones de ejecución
-- Para ejecutar el programa ejecutar:
+- Para ejecutar el programa:
 ```
 ./RTTP instances/<nombre_archivo.txt> <iteraciones> <restarts>
 ```
