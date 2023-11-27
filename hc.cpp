@@ -4,36 +4,7 @@
 # include <chrono>
 # include <unistd.h>
 
-// Function to improve a initial solution of RTTP usign hill climbing first improvement
-// Returns the best solution found
-Tournament hillClimbingFI(Tournament initial_solution, Instance instance, int iter) {
-    Tournament best_solution = initial_solution;
-    
-    int count = 0;
-    // Hill climbing first improvement
-    for (int i = 0; i < iter; i++) {
-        Tournament neighbor = hyperMove(best_solution, instance);
-        
-        // Check if the local optimum has been reached
-        if (neighbor.calculateFitness(instance) < best_solution.calculateFitness(instance)) {
-            best_solution = neighbor;
-            count++;
-        }
-        else {
-            break;
-        }
-        
-        // Print best solution
-        cout << "Iteration: " << i + 1 << endl;
-        cout << "Fitness: " << best_solution.calculateFitness(instance) << endl;
-        best_solution.print();
-    }
-
-    cout << "Number of improvements: " << count << endl;
-
-    return best_solution;
-}
-
+// Function that implement the first improvement hill climbing algorithm with restarts
 Tournament HCFI(Instance instance, int n_iter, int n_restarts, int seed) {
     // Generate initial solution
     Tournament best_solution = initialSolution(instance, seed);

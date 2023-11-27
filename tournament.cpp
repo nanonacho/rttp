@@ -266,10 +266,6 @@ int Tournament::calculateFitness(Instance instance) {
     int constraints_violated = countAllViolations(instance);
     int average_distance = calculateAverageDistance(instance.getDistances());
 
-    /*
-    if (constraints_violated == 0) return total_distance;
-    else return sqrt(pow(total_distance, 2) + pow(average_distance * (1 + sqrt(constraints_violated) * log(constraints_violated) / 2), 2));
-    */
    return total_distance + average_distance * constraints_violated * (n - 1) * 0.5;
 }
 

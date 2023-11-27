@@ -60,13 +60,13 @@ Tournament swapTeams(Tournament tournament, int team1, int team2) {
 // Function to get first improvement applying each move to a tournament and returning the best one
 // Returns a new tournament with the applied move
 Tournament hyperMove(Tournament tournament, Instance instance) {
-
     vector<vector<int>> schedule = tournament.getSchedule();
     int tournament_fitness = tournament.calculateFitness(instance);
     int n = instance.getN();
 
     Tournament best = tournament;
 
+    // Apply Swap rounds and get first improvement
     Tournament best_1 = tournament;
     int best_1_fitness = 1000000000;
     for (int i = 0; i < 4 * (n - 1); i++) {
@@ -78,7 +78,11 @@ Tournament hyperMove(Tournament tournament, Instance instance) {
         }
         if (best_1_fitness < tournament_fitness) break;
     }
+    
+    // If a better solution was found, save it
+    if (best_1_fitness < best.calculateFitness(instance)) best = best_1;
 
+    // Apply Swap homes and get first improvement
     Tournament best_2 = tournament;
     int best_2_fitness = 1000000000;
     for (int i = 0; i < n; i++) {
@@ -90,8 +94,10 @@ Tournament hyperMove(Tournament tournament, Instance instance) {
         if (best_2_fitness < tournament_fitness) break;
     }
 
+    // If a better solution was found, save it
     if (best_2_fitness < best.calculateFitness(instance)) best = best_2;
 
+    // Apply Swap teams and get first improvement
     Tournament best_3 = tournament;
     int best_3_fitness = 1000000000;
     for (int i = 0; i < n; i++) {
@@ -103,6 +109,7 @@ Tournament hyperMove(Tournament tournament, Instance instance) {
         if (best_3_fitness < tournament_fitness) break;
     }
 
+    // If a better solution was found, save it
     if (best_3_fitness < best.calculateFitness(instance)) best = best_3;
 
     return best;
