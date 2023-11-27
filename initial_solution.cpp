@@ -5,9 +5,9 @@
 
 // Function to create schedule using polygon method and assign byes and local games randomly
 // Returns a Tournament with schedule created
-Tournament initialSolution(Instance instance, int random_seed) {
+Tournament initialSolution(Instance instance, int seed) {
     // Seed for random number generator
-    srand(random_seed);
+    srand(seed);
     
     int n = instance.getN();
     

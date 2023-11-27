@@ -2,6 +2,7 @@
 # include "iostream"
 # include "iomanip"
 # include "cmath"
+# include <fstream>
 
 Tournament::Tournament(vector<vector<int>> schedule) {
     this->schedule = schedule;
@@ -9,6 +10,14 @@ Tournament::Tournament(vector<vector<int>> schedule) {
 
 vector<vector<int>> Tournament::getSchedule() {
     return schedule;
+}
+
+int Tournament::getImprovements() {
+    return improvements;
+}
+
+void Tournament::setImprovements(int improvements) {
+    this->improvements = improvements;
 }
 
 // Function to calculate the total distance traveled by each team 
@@ -252,6 +261,7 @@ int Tournament::calculateAverageDistance(vector<vector<int>> distances) {
 // Returns the fitness 
 int Tournament::calculateFitness(Instance instance) {
     int total_distance = calculateTotalDistance(instance.getDistances());
+    int n = instance.getN();
     // Penalizations
     int constraints_violated = countAllViolations(instance);
     int average_distance = calculateAverageDistance(instance.getDistances());
@@ -260,7 +270,7 @@ int Tournament::calculateFitness(Instance instance) {
     if (constraints_violated == 0) return total_distance;
     else return sqrt(pow(total_distance, 2) + pow(average_distance * (1 + sqrt(constraints_violated) * log(constraints_violated) / 2), 2));
     */
-   return total_distance + average_distance * constraints_violated;
+   return total_distance + average_distance * constraints_violated * (n - 1) * 0.5;
 }
 
 void Tournament::print() {
@@ -273,4 +283,51 @@ void Tournament::print() {
         cout << endl;
     }
     cout << endl;
+}
+
+// Function to write a .txt solution file
+void Tournament::writeToTxt(string filename, Instance instance, int execution_time) {
+    ofstream file(filename);
+
+    file << "Solution:" << endl;
+    
+    // Write schedule
+    int team = 1;
+    for (vector<int> row : schedule) {
+        file << team++ << ": ";
+        for (int element : row) {
+            file << element << " ";
+        }
+        file << endl;
+    }
+
+    // Write distances traveled by each teams
+    vector<int> total_distance_by_team = calculateTotalDistanceByTeam(instance.getDistances());
+    file << endl;
+    file << "Total distance by team:" << endl;
+    for (int i = 0; i < int(total_distance_by_team.size()); i++) {
+        file << i + 1 << ": " << total_distance_by_team[i] << endl;
+    }
+
+    // Write total distance
+    file << endl;
+    file << "Total distance: " << calculateTotalDistance(instance.getDistances()) << endl;
+
+    // Write fitness
+    file << endl;
+    file << "Fitness: " << calculateFitness(instance) << endl;
+
+    // Write execution time
+    file << endl;
+    file << "Execution time (s): " << execution_time * 1e-3 << endl;
+
+    // Write number of violated constraints
+    file << endl;
+    file << "Number of violated constraints: " << calculateConstraintsViolated(instance) << endl;
+
+    // Write number of iterations
+    file << endl;
+    file << "Number of iterations achieved: " << getImprovements() << endl;
+
+    file.close();    
 }

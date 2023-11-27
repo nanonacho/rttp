@@ -9,12 +9,14 @@ make
 ```
 ./RTTP instances/<nombre_archivo.txt> <iteraciones> <restarts>
 ```
-- **Consideración:** Aun no se utiliza *iteraciones* y *restarts* asi que da lo mismo que número se ponga.
-- **Ejemplo** para ejecutar con instancia "data4.txt":
+- **Ejemplo** para ejecutar para instancia "data4.txt" con 500 iteraciones y 5 restarts:
 ```
-./RTTP instances/data4.txt 0 0
+./RTTP instances/data4.txt 500 5
 ```
 
+# Output del programa
+- El output del programa muestra por pantalla detalles de la solución obtenida.
+- El programa crea un archivo "results.txt" el cual contiene la solución y detalles de esta.
+
 # Consideraciones
-- Los archivos **main.cpp**, **instance.cpp**, **tournament.cpp**, **initial_solution.cpp** y **headers.h** son usados para esta entrega.
-- Los **demás archivos** son implementaciones que se encuentran en desarrollo.
+- El archivo test.cpp no es usado ni compilado, ya que, este se uso para realizar los experimentos.

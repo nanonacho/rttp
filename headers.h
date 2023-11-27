@@ -29,8 +29,11 @@ Instance readTxtInstance(string filename);
 // tournament.cpp
 class Tournament {
 public:
-    Tournament(vector<vector<int>> schedule); 
+    Tournament(vector<vector<int>> schedule);
+    
     vector<vector<int>> getSchedule();
+    int getImprovements();
+    void setImprovements(int improvements);
     vector<int> calculateTotalDistanceByTeam(vector<vector<int>> distances);
     int calculateTotalDistance(vector<vector<int>> distances);
     int verifyConsecutiveLocalGamesBounds(int l, int u);
@@ -46,11 +49,12 @@ public:
     int calculateConstraintsViolated(Instance instance);
     int calculateFitness(Instance instance);
     int calculateAverageDistance(vector<vector<int>> distances);
+    void writeToTxt(string filename, Instance instance, int execution_time);
     
     void print();
 private:
     vector<vector<int>> schedule;
-    
+    int improvements; 
 };
 
 // initial_solution.cpp
@@ -64,6 +68,9 @@ Tournament hyperMove(Tournament tournament, Instance instance);
 
 // hc.cpp
 Tournament hillClimbingFI(Tournament initial_solution, Instance instance, int iter);
+Tournament HCFI(Instance instance, int n_iter, int n_restarts, int seed);
 
 // test.cpp
 void testHC(int restarts, int n_iter, Instance instance);
+void testRestarts(Instance instance);
+void testHCFI(Instance instance, int n_iter, int n_restarts, int n_exec);
